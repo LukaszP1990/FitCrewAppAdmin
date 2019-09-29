@@ -3,7 +3,8 @@ package com.fitcrew.FitCrewAppAdmin.services;
 import com.fitcrew.FitCrewAppAdmin.dao.AdminDao;
 import com.fitcrew.FitCrewAppAdmin.domains.AdminEntity;
 import com.fitcrew.FitCrewAppAdmin.dto.AdminDto;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ErrorMsg;
+
+import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
 import io.vavr.control.Either;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
