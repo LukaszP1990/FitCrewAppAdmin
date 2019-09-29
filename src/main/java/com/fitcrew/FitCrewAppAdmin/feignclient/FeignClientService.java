@@ -21,4 +21,7 @@ public interface FeignClientService {
     @PutMapping(value = "/updateClient/{clientEmail}/clientEmail")
     ClientDto updateClient(ClientDto clientDto,
                            String clientEmail);
+
+    @GetMapping(value = "/getClient/{clientEmail}/clientEmail")
+    ClientDto getClient(@PathVariable String clientEmail);
 }

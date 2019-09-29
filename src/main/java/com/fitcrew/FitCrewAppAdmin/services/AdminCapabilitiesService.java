@@ -31,6 +31,13 @@ public class AdminCapabilitiesService {
         return checkEitherResponseForClients(clients);
     }
 
+    public Either<ErrorMsg, ClientDto> getClient(String clientEmail) {
+
+        ClientDto client = feignClientService.getClient(clientEmail);
+
+        return checkEitherResponseForClient(client);
+    }
+
     public Either<ErrorMsg, ClientDto> deleteClient(String clientEmail) {
 
         ClientDto client = feignClientService.deleteClient(clientEmail);
@@ -49,6 +56,13 @@ public class AdminCapabilitiesService {
     public Either<ErrorMsg, List<TrainerDto>> getTrainers() {
 
         return checkEitherResponseForTrainers(feignTrainerService.getAllTrainers());
+    }
+
+    public Either<ErrorMsg, TrainerDto> getTrainer(String trainerEmail) {
+
+        TrainerDto trainer = feignTrainerService.getTrainer(trainerEmail);
+
+        return checkEitherResponseForTrainer(trainer);
     }
 
     public Either<ErrorMsg, TrainerDto> deleteTrainer(String trainerEmail) {
