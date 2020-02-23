@@ -4,6 +4,7 @@ import com.fitcrew.FitCrewAppAdmin.dao.AdminDao;
 import com.fitcrew.FitCrewAppAdmin.domains.AdminEntity;
 import com.fitcrew.FitCrewAppAdmin.dto.AdminDto;
 
+import com.fitcrew.FitCrewAppAdmin.enums.AdminErrorMessageType;
 import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
 import io.vavr.control.Either;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -29,16 +31,19 @@ public class AdminCreateService {
     }
 
     public Either<ErrorMsg, AdminDto> createAdmin(AdminDto adminDto) {
-
-        setPredefinedData(adminDto);
-
         ModelMapper modelMapper = prepareModelMapper();
 
+        return Optional.ofNullable(adminDto)
+                .map(admin -> saveAdminDto(admin, modelMapper))
+                .map(admin -> modelMapper.map(admin, AdminDto.class))
+                .map(Either::<ErrorMsg, AdminDto>right)
+                .orElse(Either.left(new ErrorMsg(AdminErrorMessageType.NO_ADMIN_SAVED.toString())));
+    }
+
+    private AdminEntity saveAdminDto(AdminDto adminDto, ModelMapper modelMapper) {
+        setPredefinedData(adminDto);
         AdminEntity adminEntity = modelMapper.map(adminDto, AdminEntity.class);
-        AdminEntity savedAdmin = adminDao.save(adminEntity);
-
-        return checkIfAdminWasSaved(savedAdmin, modelMapper);
-
+        return adminDao.save(adminEntity);
     }
 
     private void setPredefinedData(AdminDto adminDto) {
@@ -60,18 +65,5 @@ public class AdminCreateService {
                 .setMatchingStrategy(MatchingStrategies.STRICT);
         modelMapper.addMappings(skipModifiedFieldsMap);
         return modelMapper;
-    }
-
-    private Either<ErrorMsg, AdminDto> checkIfAdminWasSaved(AdminEntity savedAdmin, ModelMapper modelMapper) {
-        if (savedAdmin != null) {
-
-            log.debug("Admin saved successfully: {}", savedAdmin);
-            AdminDto returnAdmin = modelMapper.map(savedAdmin, AdminDto.class);
-
-            return Either.right(returnAdmin);
-        } else {
-            log.debug("Admin save failed");
-            return Either.left(new ErrorMsg("Admin save failed"));
-        }
     }
 }

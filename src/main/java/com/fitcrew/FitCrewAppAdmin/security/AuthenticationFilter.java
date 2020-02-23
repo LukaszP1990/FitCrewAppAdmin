@@ -3,9 +3,12 @@ package com.fitcrew.FitCrewAppAdmin.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fitcrew.FitCrewAppAdmin.dto.AdminDto;
 import com.fitcrew.FitCrewAppAdmin.dto.LoginDto;
+import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
 import com.fitcrew.FitCrewAppAdmin.services.AdminSignInService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.vavr.control.Either;
+
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -62,11 +65,12 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             Authentication auth) throws IOException, ServletException {
 
         String email = ((User) auth.getPrincipal()).getUsername();
-        AdminDto adminDetailsByEmail = adminSignInService.getAdminDetailsByEmail(email);
+        Either<ErrorMsg, AdminDto> adminDetailsByEmail = adminSignInService.getAdminDetailsByEmail(email);
 
-        String token = createJwtToken(adminDetailsByEmail);
-
-        setHeaderResponse(res, adminDetailsByEmail, token);
+        if (adminDetailsByEmail.isRight()) {
+            String token = createJwtToken(adminDetailsByEmail.get());
+            setHeaderResponse(res, adminDetailsByEmail.get(), token);
+        }
     }
 
     private void setHeaderResponse(HttpServletResponse res, AdminDto adminDetailsByEmail, String token) {
