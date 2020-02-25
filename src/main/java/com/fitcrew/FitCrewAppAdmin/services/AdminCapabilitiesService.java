@@ -1,19 +1,19 @@
 package com.fitcrew.FitCrewAppAdmin.services;
 
-import com.fitcrew.FitCrewAppAdmin.dto.ClientDto;
-import com.fitcrew.FitCrewAppAdmin.dto.TrainerDto;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.fitcrew.FitCrewAppAdmin.enums.AdminErrorMessageType;
 import com.fitcrew.FitCrewAppAdmin.feignclient.FeignClientService;
 import com.fitcrew.FitCrewAppAdmin.feignclient.FeignTrainerService;
 import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
+import com.fitcrew.FitCrewAppModel.domain.model.ClientDto;
+import com.fitcrew.FitCrewAppModel.domain.model.TrainerDto;
 
 import io.vavr.control.Either;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service

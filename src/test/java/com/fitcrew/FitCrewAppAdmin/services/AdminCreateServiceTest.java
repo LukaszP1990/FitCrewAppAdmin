@@ -1,6 +1,9 @@
 package com.fitcrew.FitCrewAppAdmin.services;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.times;
@@ -20,11 +23,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fitcrew.FitCrewAppAdmin.dao.AdminDao;
 import com.fitcrew.FitCrewAppAdmin.domains.AdminEntity;
-import com.fitcrew.FitCrewAppAdmin.dto.AdminDto;
-import com.fitcrew.FitCrewAppAdmin.dto.ClientDto;
 import com.fitcrew.FitCrewAppAdmin.enums.AdminErrorMessageType;
 import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
 import com.fitcrew.FitCrewAppAdmin.util.AdminResourceMockUtil;
+import com.fitcrew.FitCrewAppModel.domain.model.AdminDto;
 
 import io.vavr.control.Either;
 

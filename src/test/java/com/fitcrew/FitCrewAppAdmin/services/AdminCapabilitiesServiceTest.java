@@ -1,9 +1,14 @@
 package com.fitcrew.FitCrewAppAdmin.services;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
@@ -17,14 +22,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import com.fitcrew.FitCrewAppAdmin.dto.ClientDto;
-import com.fitcrew.FitCrewAppAdmin.dto.TrainerDto;
 import com.fitcrew.FitCrewAppAdmin.enums.AdminErrorMessageType;
 import com.fitcrew.FitCrewAppAdmin.feignclient.FeignClientService;
 import com.fitcrew.FitCrewAppAdmin.feignclient.FeignTrainerService;
 import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
 import com.fitcrew.FitCrewAppAdmin.util.ClientResourceMockUtil;
 import com.fitcrew.FitCrewAppAdmin.util.TrainerResourceMockUtil;
+import com.fitcrew.FitCrewAppModel.domain.model.ClientDto;
+import com.fitcrew.FitCrewAppModel.domain.model.TrainerDto;
 
 import io.vavr.control.Either;
 

@@ -10,9 +10,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.fitcrew.FitCrewAppAdmin.dao.AdminDao;
-import com.fitcrew.FitCrewAppAdmin.dto.AdminDto;
 import com.fitcrew.FitCrewAppAdmin.enums.AdminErrorMessageType;
 import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
+import com.fitcrew.FitCrewAppModel.domain.model.AdminDto;
 
 import io.vavr.control.Either;
 import lombok.extern.slf4j.Slf4j;

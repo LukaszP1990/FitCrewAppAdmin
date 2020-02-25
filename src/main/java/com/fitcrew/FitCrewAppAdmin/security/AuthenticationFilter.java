@@ -1,13 +1,14 @@
 package com.fitcrew.FitCrewAppAdmin.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fitcrew.FitCrewAppAdmin.dto.AdminDto;
-import com.fitcrew.FitCrewAppAdmin.dto.LoginDto;
-import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
-import com.fitcrew.FitCrewAppAdmin.services.AdminSignInService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.vavr.control.Either;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Objects;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,14 +18,15 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
+import com.fitcrew.FitCrewAppAdmin.services.AdminSignInService;
+import com.fitcrew.FitCrewAppModel.domain.model.AdminDto;
+import com.fitcrew.FitCrewAppModel.domain.model.LoginDto;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.vavr.control.Either;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 

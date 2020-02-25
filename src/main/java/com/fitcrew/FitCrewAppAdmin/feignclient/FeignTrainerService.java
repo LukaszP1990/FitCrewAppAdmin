@@ -1,6 +1,6 @@
 package com.fitcrew.FitCrewAppAdmin.feignclient;
 
-import com.fitcrew.FitCrewAppAdmin.dto.TrainerDto;
+import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
+import com.fitcrew.FitCrewAppModel.domain.model.TrainerDto;
 
 @FeignClient(name = "trainer-ws", path = "/trainer")
 public interface FeignTrainerService {

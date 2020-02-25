@@ -1,6 +1,6 @@
 package com.fitcrew.FitCrewAppAdmin.feignclient;
 
-import com.fitcrew.FitCrewAppAdmin.dto.ClientDto;
+import com.fitcrew.FitCrewAppModel.domain.model.ClientDto;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

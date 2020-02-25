@@ -1,10 +1,11 @@
 package com.fitcrew.FitCrewAppAdmin.resources;
 
-import com.fitcrew.FitCrewAppAdmin.dto.ClientDto;
-import com.fitcrew.FitCrewAppAdmin.dto.TrainerDto;
 import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
 import com.fitcrew.FitCrewAppAdmin.resolver.ResponseResolver;
 import com.fitcrew.FitCrewAppAdmin.services.AdminCapabilitiesService;
+import com.fitcrew.FitCrewAppModel.domain.model.ClientDto;
+import com.fitcrew.FitCrewAppModel.domain.model.TrainerDto;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;

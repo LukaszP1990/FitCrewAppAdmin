@@ -25,10 +25,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fitcrew.FitCrewAppAdmin.dao.AdminDao;
 import com.fitcrew.FitCrewAppAdmin.domains.AdminEntity;
-import com.fitcrew.FitCrewAppAdmin.dto.AdminDto;
 import com.fitcrew.FitCrewAppAdmin.enums.AdminErrorMessageType;
 import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
 import com.fitcrew.FitCrewAppAdmin.util.AdminResourceMockUtil;
+import com.fitcrew.FitCrewAppModel.domain.model.AdminDto;
 
 import io.vavr.control.Either;
 

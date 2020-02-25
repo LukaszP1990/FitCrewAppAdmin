@@ -1,14 +1,24 @@
 package com.fitcrew.FitCrewAppAdmin.domains;
 
-import lombok.*;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "Admin")
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Document
 @Getter
 @Setter
 @Builder
@@ -20,22 +30,32 @@ public class AdminEntity implements Serializable {
     private static final long serialVersionUID = 1421658171867127534L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, length = 20)
+    @Field(value = "FIRST_NAME")
+    @NotNull
+    @Length(max = 20)
     private String firstName;
 
-    @Column(nullable = false, length = 20)
+    @Field(value = "LAST_NAME")
+    @NotNull
+    @Length(max = 20)
     private String lastName;
 
-    @Column(name = "Email", nullable = false, unique = true)
+    @Field(value = "EMAIL")
+    @Indexed(unique = true)
+    @NotNull
+    @Length(max = 20)
     @Email
     private String email;
 
-    @Column(nullable = false, unique = true)
+    @Field(value = "ADMIN_ID")
+    @Indexed(unique = true)
+    @NotNull
     private String adminId;
 
-    @Column(nullable = false, unique = true)
+    @Field(value = "ENCRYPTED_PASSWORD")
+    @Indexed(unique = true)
+    @NotNull
     private String encryptedPassword;
 }

@@ -1,21 +1,22 @@
 package com.fitcrew.FitCrewAppAdmin.services;
 
-import com.fitcrew.FitCrewAppAdmin.dao.AdminDao;
-import com.fitcrew.FitCrewAppAdmin.domains.AdminEntity;
-import com.fitcrew.FitCrewAppAdmin.dto.AdminDto;
+import java.util.Optional;
+import java.util.UUID;
 
-import com.fitcrew.FitCrewAppAdmin.enums.AdminErrorMessageType;
-import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
-import io.vavr.control.Either;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.UUID;
+import com.fitcrew.FitCrewAppAdmin.dao.AdminDao;
+import com.fitcrew.FitCrewAppAdmin.domains.AdminEntity;
+import com.fitcrew.FitCrewAppAdmin.enums.AdminErrorMessageType;
+import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
+import com.fitcrew.FitCrewAppModel.domain.model.AdminDto;
+
+import io.vavr.control.Either;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service

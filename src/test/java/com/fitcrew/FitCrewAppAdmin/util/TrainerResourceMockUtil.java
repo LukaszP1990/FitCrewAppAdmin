@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import com.fitcrew.FitCrewAppAdmin.dto.TrainerDto;
+import com.fitcrew.FitCrewAppModel.domain.model.TrainerDto;
 
 public class TrainerResourceMockUtil {
 

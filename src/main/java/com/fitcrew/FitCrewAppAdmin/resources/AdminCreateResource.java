@@ -1,21 +1,23 @@
 package com.fitcrew.FitCrewAppAdmin.resources;
 
-import com.fitcrew.FitCrewAppAdmin.dto.AdminDto;
-import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
-import com.fitcrew.FitCrewAppAdmin.resolver.ResponseResolver;
-import com.fitcrew.FitCrewAppAdmin.services.AdminCreateService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.vavr.control.Either;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
+import com.fitcrew.FitCrewAppAdmin.resolver.ResponseResolver;
+import com.fitcrew.FitCrewAppAdmin.services.AdminCreateService;
+import com.fitcrew.FitCrewAppModel.domain.model.AdminDto;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.vavr.control.Either;
+import lombok.extern.slf4j.Slf4j;
 
 @Api(value = "Admin sign up resource")
 @Slf4j

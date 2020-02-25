@@ -1,7 +1,7 @@
 package com.fitcrew.FitCrewAppAdmin.util;
 
 import com.fitcrew.FitCrewAppAdmin.domains.AdminEntity;
-import com.fitcrew.FitCrewAppAdmin.dto.AdminDto;
+import com.fitcrew.FitCrewAppModel.domain.model.AdminDto;
 
 public class AdminResourceMockUtil {
 
