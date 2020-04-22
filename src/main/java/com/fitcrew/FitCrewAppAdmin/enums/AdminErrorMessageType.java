@@ -11,7 +11,7 @@ public enum AdminErrorMessageType {
 	NO_TRAINERS_FOUND("No trainers found"),
 	NO_TRAINER_FOUND("No trainer found"),
 	NO_TRAINER_DELETED("No trainer deleted"),
-	NO_TRAINER_UPADTED("No trainer updated");
+	NO_TRAINER_UPDATED("No trainer updated");
 
 	AdminErrorMessageType(String message) {
 	}

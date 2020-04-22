@@ -1,16 +1,12 @@
 package com.fitcrew.FitCrewAppAdmin.feignclient;
 
-import java.util.List;
-
+import com.fitcrew.FitCrewAppAdmin.dto.TrainerDto;
+import com.fitcrew.FitCrewAppModel.domain.model.TrainerModel;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.fitcrew.FitCrewAppModel.domain.model.TrainerDto;
+import java.util.List;
 
 @FeignClient(name = "trainer-ws", path = "/trainer")
 public interface FeignTrainerService {
@@ -22,7 +18,7 @@ public interface FeignTrainerService {
 			produces = {
 					MediaType.APPLICATION_JSON_VALUE,
 					MediaType.APPLICATION_XML_VALUE})
-	List<TrainerDto> getAllTrainers();
+	List<TrainerModel> getAllTrainers();
 
 	@DeleteMapping(value = "/deleteTrainer/{trainerEmail}/trainerEmail",
 			consumes = {
@@ -31,7 +27,7 @@ public interface FeignTrainerService {
 			produces = {
 					MediaType.APPLICATION_JSON_VALUE,
 					MediaType.APPLICATION_XML_VALUE})
-	TrainerDto deleteTrainer(@PathVariable String trainerEmail);
+	TrainerModel deleteTrainer(@PathVariable String trainerEmail);
 
 	@PutMapping(value = "/updateTrainer/{trainerEmail}/trainerEmail",
 			consumes = {
@@ -40,7 +36,7 @@ public interface FeignTrainerService {
 			produces = {
 					MediaType.APPLICATION_JSON_VALUE,
 					MediaType.APPLICATION_XML_VALUE})
-	TrainerDto updateTrainer(@RequestBody TrainerDto trainerDto,
+	TrainerModel updateTrainer(@RequestBody TrainerDto trainerDto,
 							 @PathVariable String trainerEmail);
 
 	@GetMapping(value = "/getTrainer/{trainerEmail}/trainerEmail",
@@ -50,5 +46,5 @@ public interface FeignTrainerService {
 			produces = {
 					MediaType.APPLICATION_JSON_VALUE,
 					MediaType.APPLICATION_XML_VALUE})
-	TrainerDto getTrainer(@PathVariable String trainerEmail);
+	TrainerModel getTrainer(@PathVariable String trainerEmail);
 }

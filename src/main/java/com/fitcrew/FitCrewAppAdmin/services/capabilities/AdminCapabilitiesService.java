@@ -1,19 +1,19 @@
-package com.fitcrew.FitCrewAppAdmin.services;
+package com.fitcrew.FitCrewAppAdmin.services.capabilities;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
+import com.fitcrew.FitCrewAppAdmin.dto.ClientDto;
+import com.fitcrew.FitCrewAppAdmin.dto.TrainerDto;
 import com.fitcrew.FitCrewAppAdmin.enums.AdminErrorMessageType;
 import com.fitcrew.FitCrewAppAdmin.feignclient.FeignClientService;
 import com.fitcrew.FitCrewAppAdmin.feignclient.FeignTrainerService;
 import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
-import com.fitcrew.FitCrewAppModel.domain.model.ClientDto;
-import com.fitcrew.FitCrewAppModel.domain.model.TrainerDto;
-
+import com.fitcrew.FitCrewAppModel.domain.model.ClientModel;
+import com.fitcrew.FitCrewAppModel.domain.model.TrainerModel;
 import io.vavr.control.Either;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -28,55 +28,55 @@ public class AdminCapabilitiesService {
 		this.feignTrainerService = feignTrainerService;
 	}
 
-	public Either<ErrorMsg, List<ClientDto>> getClients() {
+	public Either<ErrorMsg, List<ClientModel>> getClients() {
 		return Optional.ofNullable(feignClientService.getClients())
 				.filter(clients -> !clients.isEmpty())
-				.map(Either::<ErrorMsg, List<ClientDto>>right)
+				.map(Either::<ErrorMsg, List<ClientModel>>right)
 				.orElse(Either.left(new ErrorMsg(AdminErrorMessageType.NO_CLIENTS_FOUND.toString())));
 	}
 
-	public Either<ErrorMsg, ClientDto> getClient(String clientEmail) {
+	public Either<ErrorMsg, ClientModel> getClient(String clientEmail) {
 		return Optional.ofNullable(feignClientService.getClient(clientEmail))
-				.map(Either::<ErrorMsg, ClientDto>right)
+				.map(Either::<ErrorMsg, ClientModel>right)
 				.orElse(Either.left(new ErrorMsg(AdminErrorMessageType.NO_CLIENT_FOUND.toString())));
 	}
 
-	public Either<ErrorMsg, ClientDto> deleteClient(String clientEmail) {
+	public Either<ErrorMsg, ClientModel> deleteClient(String clientEmail) {
 		return Optional.ofNullable(feignClientService.deleteClient(clientEmail))
-				.map(Either::<ErrorMsg, ClientDto>right)
+				.map(Either::<ErrorMsg, ClientModel>right)
 				.orElse(Either.left(new ErrorMsg(AdminErrorMessageType.NO_CLIENT_DELETED.toString())));
 	}
 
-	public Either<ErrorMsg, ClientDto> updateClient(ClientDto clientDto,
-													String clientEmail) {
+	public Either<ErrorMsg, ClientModel> updateClient(ClientDto clientDto,
+													  String clientEmail) {
 		return Optional.ofNullable(feignClientService.updateClient(clientDto, clientEmail))
-				.map(Either::<ErrorMsg, ClientDto>right)
+				.map(Either::<ErrorMsg, ClientModel>right)
 				.orElse(Either.left(new ErrorMsg(AdminErrorMessageType.NO_CLIENT_UPDATED.toString())));
 	}
 
-	public Either<ErrorMsg, List<TrainerDto>> getTrainers() {
+	public Either<ErrorMsg, List<TrainerModel>> getTrainers() {
 		return Optional.ofNullable(feignTrainerService.getAllTrainers())
 				.filter(trainers -> !trainers.isEmpty())
-				.map(Either::<ErrorMsg, List<TrainerDto>>right)
+				.map(Either::<ErrorMsg, List<TrainerModel>>right)
 				.orElse(Either.left(new ErrorMsg(AdminErrorMessageType.NO_TRAINERS_FOUND.toString())));
 	}
 
-	public Either<ErrorMsg, TrainerDto> getTrainer(String trainerEmail) {
+	public Either<ErrorMsg, TrainerModel> getTrainer(String trainerEmail) {
 		return Optional.ofNullable(feignTrainerService.getTrainer(trainerEmail))
-				.map(Either::<ErrorMsg, TrainerDto>right)
+				.map(Either::<ErrorMsg, TrainerModel>right)
 				.orElse(Either.left(new ErrorMsg(AdminErrorMessageType.NO_TRAINER_FOUND.toString())));
 	}
 
-	public Either<ErrorMsg, TrainerDto> deleteTrainer(String trainerEmail) {
+	public Either<ErrorMsg, TrainerModel> deleteTrainer(String trainerEmail) {
 		return Optional.ofNullable(feignTrainerService.deleteTrainer(trainerEmail))
-				.map(Either::<ErrorMsg, TrainerDto>right)
+				.map(Either::<ErrorMsg, TrainerModel>right)
 				.orElse(Either.left(new ErrorMsg(AdminErrorMessageType.NO_TRAINER_DELETED.toString())));
 	}
 
-	public Either<ErrorMsg, TrainerDto> updateTrainer(TrainerDto trainerDto,
-													  String trainerEmail) {
+	public Either<ErrorMsg, TrainerModel> updateTrainer(TrainerDto trainerDto,
+														String trainerEmail) {
 		return Optional.ofNullable(feignTrainerService.updateTrainer(trainerDto, trainerEmail))
-				.map(Either::<ErrorMsg, TrainerDto>right)
-				.orElse(Either.left(new ErrorMsg(AdminErrorMessageType.NO_TRAINER_UPADTED.toString())));
+				.map(Either::<ErrorMsg, TrainerModel>right)
+				.orElse(Either.left(new ErrorMsg(AdminErrorMessageType.NO_TRAINER_UPDATED.toString())));
 	}
 }

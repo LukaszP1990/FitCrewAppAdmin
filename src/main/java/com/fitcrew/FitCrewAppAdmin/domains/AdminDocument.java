@@ -25,7 +25,7 @@ import lombok.ToString;
 @AllArgsConstructor(onConstructor = @__(@Builder))
 @NoArgsConstructor
 @ToString
-public class AdminEntity implements Serializable {
+public class AdminDocument implements Serializable {
 
     private static final long serialVersionUID = 1421658171867127534L;
 

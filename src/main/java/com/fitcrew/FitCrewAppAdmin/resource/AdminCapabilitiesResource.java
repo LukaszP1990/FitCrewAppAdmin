@@ -1,16 +1,13 @@
-package com.fitcrew.FitCrewAppAdmin.resources;
+package com.fitcrew.FitCrewAppAdmin.resource;
 
-import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
+import com.fitcrew.FitCrewAppAdmin.dto.ClientDto;
+import com.fitcrew.FitCrewAppAdmin.dto.TrainerDto;
 import com.fitcrew.FitCrewAppAdmin.resolver.ResponseResolver;
-import com.fitcrew.FitCrewAppAdmin.services.AdminCapabilitiesService;
-import com.fitcrew.FitCrewAppModel.domain.model.ClientDto;
-import com.fitcrew.FitCrewAppModel.domain.model.TrainerDto;
-
+import com.fitcrew.FitCrewAppAdmin.services.capabilities.AdminCapabilitiesServiceFacade;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import io.vavr.control.Either;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +19,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin")
 class AdminCapabilitiesResource {
 
-    private final AdminCapabilitiesService adminCapabilitiesService;
+    private final AdminCapabilitiesServiceFacade adminCapabilitiesServiceFacade;
 
-    AdminCapabilitiesResource(AdminCapabilitiesService adminCapabilitiesService) {
-        this.adminCapabilitiesService = adminCapabilitiesService;
+    AdminCapabilitiesResource(AdminCapabilitiesServiceFacade adminCapabilitiesServiceFacade) {
+        this.adminCapabilitiesServiceFacade = adminCapabilitiesServiceFacade;
     }
 
     @ApiOperation(value = "Return all clients for admin")
@@ -43,9 +40,11 @@ class AdminCapabilitiesResource {
             produces = {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE,})
-    private ResponseEntity getListsOfClients() {
+    public ResponseEntity getListsOfClients() {
 
-        return ResponseResolver.resolve(adminCapabilitiesService.getClients());
+        return ResponseResolver.resolve(
+                adminCapabilitiesServiceFacade.getClients()
+        );
     }
 
     @ApiOperation(value = "Return single client for admin")
@@ -63,7 +62,9 @@ class AdminCapabilitiesResource {
                     MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity getClient(@PathVariable String clientEmail) {
 
-        return ResponseResolver.resolve(adminCapabilitiesService.getClient(clientEmail));
+        return ResponseResolver.resolve(
+                adminCapabilitiesServiceFacade.getClient(clientEmail)
+        );
     }
 
     @ApiOperation(value = "Return client who has been deleted")
@@ -81,9 +82,12 @@ class AdminCapabilitiesResource {
             produces = {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE,})
-    private ResponseEntity deleteClient(@PathVariable String clientEmail) {
+    public ResponseEntity deleteClient(@PathVariable String clientEmail) {
+        log.debug("Delete client by client email address: {}", clientEmail);
 
-        return ResponseResolver.resolve(adminCapabilitiesService.deleteClient(clientEmail));
+        return ResponseResolver.resolve(
+                adminCapabilitiesServiceFacade.deleteClient(clientEmail)
+        );
     }
 
     @ApiOperation(value = "Return client who has been updated")
@@ -101,12 +105,13 @@ class AdminCapabilitiesResource {
             produces = {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE,})
-    private ResponseEntity updateClient(@RequestBody ClientDto clientDto,
+    public ResponseEntity updateClient(@RequestBody ClientDto clientDto,
                                         @PathVariable String clientEmail) {
+        log.debug("Update client: {} \n by client email address: {}", clientDto, clientEmail);
 
-        Either<ErrorMsg, ClientDto> updatedClient =
-                adminCapabilitiesService.updateClient(clientDto, clientEmail);
-        return ResponseResolver.resolve(updatedClient);
+        return ResponseResolver.resolve(
+                adminCapabilitiesServiceFacade.updateClient(clientDto, clientEmail)
+        );
     }
 
     @ApiOperation(value = "Return all trainers for admin")
@@ -124,9 +129,9 @@ class AdminCapabilitiesResource {
             produces = {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE,})
-    private ResponseEntity getListsOfTrainers() {
+    public ResponseEntity getListsOfTrainers() {
 
-        return ResponseResolver.resolve(adminCapabilitiesService.getTrainers());
+        return ResponseResolver.resolve(adminCapabilitiesServiceFacade.getTrainers());
     }
 
     @ApiOperation(value = "Return single trainer for admin")
@@ -143,8 +148,11 @@ class AdminCapabilitiesResource {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity getTrainer(@PathVariable String trainerEmail) {
+        log.debug("Get trainer by trainer email address: {}", trainerEmail);
 
-        return ResponseResolver.resolve(adminCapabilitiesService.getTrainer(trainerEmail));
+        return ResponseResolver.resolve(
+                adminCapabilitiesServiceFacade.getTrainer(trainerEmail)
+        );
     }
 
     @ApiOperation(value = "Return trainer who has been deleted")
@@ -162,9 +170,12 @@ class AdminCapabilitiesResource {
             produces = {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE,})
-    private ResponseEntity deleteTrainer(@PathVariable String trainerEmail) {
+    public ResponseEntity deleteTrainer(@PathVariable String trainerEmail) {
+        log.debug("Delete trainer by trainer email address: {}", trainerEmail);
 
-        return ResponseResolver.resolve(adminCapabilitiesService.deleteTrainer(trainerEmail));
+        return ResponseResolver.resolve(
+                adminCapabilitiesServiceFacade.deleteTrainer(trainerEmail)
+        );
     }
 
     @ApiOperation(value = "Return trainer who has been updated")
@@ -182,11 +193,12 @@ class AdminCapabilitiesResource {
             produces = {
                     MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE,})
-    private ResponseEntity updateTrainer(@RequestBody TrainerDto trainerDto,
+    public ResponseEntity updateTrainer(@RequestBody TrainerDto trainerDto,
                                          @PathVariable String trainerEmail) {
+        log.debug("Update trainer: {} \n by trainer email address: {}", trainerDto, trainerEmail);
 
-        Either<ErrorMsg, TrainerDto> updatedTrainer =
-                adminCapabilitiesService.updateTrainer(trainerDto, trainerEmail);
-        return ResponseResolver.resolve(updatedTrainer);
+        return ResponseResolver.resolve(
+                adminCapabilitiesServiceFacade.updateTrainer(trainerDto, trainerEmail)
+        );
     }
 }

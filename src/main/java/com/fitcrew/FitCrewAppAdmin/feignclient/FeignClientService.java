@@ -1,14 +1,10 @@
 package com.fitcrew.FitCrewAppAdmin.feignclient;
 
-import com.fitcrew.FitCrewAppModel.domain.model.ClientDto;
-
+import com.fitcrew.FitCrewAppAdmin.dto.ClientDto;
+import com.fitcrew.FitCrewAppModel.domain.model.ClientModel;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +18,7 @@ public interface FeignClientService {
 			produces = {
 					MediaType.APPLICATION_JSON_VALUE,
 					MediaType.APPLICATION_XML_VALUE})
-	List<ClientDto> getClients();
+	List<ClientModel> getClients();
 
 	@DeleteMapping(value = "/deleteClient/{clientEmail}/clientEmail",
 			consumes = {
@@ -31,7 +27,7 @@ public interface FeignClientService {
 			produces = {
 					MediaType.APPLICATION_JSON_VALUE,
 					MediaType.APPLICATION_XML_VALUE})
-	ClientDto deleteClient(@PathVariable String clientEmail);
+	ClientModel deleteClient(@PathVariable String clientEmail);
 
 	@PutMapping(value = "/updateClient/{clientEmail}/clientEmail",
 			consumes = {
@@ -40,7 +36,7 @@ public interface FeignClientService {
 			produces = {
 					MediaType.APPLICATION_JSON_VALUE,
 					MediaType.APPLICATION_XML_VALUE})
-	ClientDto updateClient(@RequestBody ClientDto clientDto,
+	ClientModel updateClient(@RequestBody ClientDto clientDto,
 						   @PathVariable String clientEmail);
 
 	@GetMapping(value = "/getClient/{clientEmail}/clientEmail",
@@ -50,5 +46,5 @@ public interface FeignClientService {
 			produces = {
 					MediaType.APPLICATION_JSON_VALUE,
 					MediaType.APPLICATION_XML_VALUE})
-	ClientDto getClient(@PathVariable String clientEmail);
+	ClientModel getClient(@PathVariable String clientEmail);
 }
