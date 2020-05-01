@@ -41,7 +41,7 @@ public class AdminCreateService {
                 .map(this::saveAdminDto)
                 .map(adminDocumentModelConverter::adminDocumentToAdminModel)
                 .map(Either::<ErrorMsg, AdminModel>right)
-                .orElse(Either.left(new ErrorMsg(AdminErrorMessageType.NO_ADMIN_SAVED.toString())));
+                .orElseGet(() -> Either.left(new ErrorMsg(AdminErrorMessageType.NO_ADMIN_SAVED.toString())));
     }
 
     private AdminDocument saveAdminDto(AdminDto adminDto) {

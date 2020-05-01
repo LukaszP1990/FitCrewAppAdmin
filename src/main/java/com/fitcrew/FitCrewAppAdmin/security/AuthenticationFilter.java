@@ -40,7 +40,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
-
         try {
             LoginDto cred = new ObjectMapper()
                     .readValue(request.getInputStream(), LoginDto.class);
@@ -52,7 +51,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                             new ArrayList<>()
                     )
             );
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -64,13 +62,12 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             FilterChain chain,
                                             Authentication auth) {
 
-        String email = ((User) auth.getPrincipal()).getUsername();
-        Either<ErrorMsg, AdminModel> adminDetailsByEmail = adminSignInService.getAdminDetailsByEmail(email);
+        var email = ((User) auth.getPrincipal()).getUsername();
+        var adminDetailsByEmail = adminSignInService.getAdminDetailsByEmail(email);
 
-        if (adminDetailsByEmail.isRight()) {
-            String token = createJwtToken(adminDetailsByEmail.get());
-            setHeaderResponse(res, adminDetailsByEmail.get(), token);
-        }
+        adminDetailsByEmail
+                .map(this::createJwtToken)
+                .peek(token -> setHeaderResponse(res, adminDetailsByEmail.get(), token));
     }
 
     private void setHeaderResponse(HttpServletResponse res, AdminModel adminDetailsByEmail, String token) {
@@ -81,14 +78,14 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private String createJwtToken(AdminModel adminDetailsByEmail) {
         return Jwts.builder()
                 .setSubject(adminDetailsByEmail.getAdminId())
-                .setExpiration(new Date(
-                        System.currentTimeMillis() + Long.parseLong(
-                                Objects.requireNonNull(
-                                        environment.getProperty("token.expiration_time")
-                                )
-                        )
-                ))
+                .setExpiration(new Date(getExpiration()))
                 .signWith(SignatureAlgorithm.HS512, environment.getProperty("token.secret"))
                 .compact();
+    }
+
+    private long getExpiration() {
+        return System.currentTimeMillis() + Long.parseLong(
+                Objects.requireNonNull(environment.getProperty("token.expiration_time"))
+        );
     }
 }
