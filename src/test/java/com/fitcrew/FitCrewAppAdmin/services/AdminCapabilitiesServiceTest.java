@@ -84,6 +84,7 @@ class AdminCapabilitiesServiceTest {
     @Test
     void shouldFailBecauseOfEmptyListsOfClients() {
 
+        when(feignClientService.getClients()).thenReturn(null);
         Either<ErrorMsg, List<ClientModel>> clients = adminCapabilitiesService.getClients();
 
         assertNotNull(clients);
@@ -174,6 +175,7 @@ class AdminCapabilitiesServiceTest {
     @Test
     void shouldFailBecauseOfEmptyListsOfTrainers() {
 
+        when(feignTrainerService.getAllTrainers()).thenReturn(null);
         Either<ErrorMsg, List<TrainerModel>> trainers = adminCapabilitiesService.getTrainers();
 
         assertNotNull(trainers);

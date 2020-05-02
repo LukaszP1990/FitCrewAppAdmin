@@ -2,12 +2,10 @@ package com.fitcrew.FitCrewAppAdmin.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fitcrew.FitCrewAppAdmin.dto.LoginDto;
-import com.fitcrew.FitCrewAppAdmin.resolver.ErrorMsg;
 import com.fitcrew.FitCrewAppAdmin.services.AdminSignInService;
 import com.fitcrew.FitCrewAppModel.domain.model.AdminModel;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.vavr.control.Either;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -61,13 +59,12 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                             HttpServletResponse res,
                                             FilterChain chain,
                                             Authentication auth) {
-
         var email = ((User) auth.getPrincipal()).getUsername();
         var adminDetailsByEmail = adminSignInService.getAdminDetailsByEmail(email);
 
         adminDetailsByEmail
                 .map(this::createJwtToken)
-                .peek(token -> setHeaderResponse(res, adminDetailsByEmail.get(), token));
+                .forEach(token -> setHeaderResponse(res, adminDetailsByEmail.get(), token));
     }
 
     private void setHeaderResponse(HttpServletResponse res, AdminModel adminDetailsByEmail, String token) {

@@ -30,7 +30,6 @@ public class AdminCapabilitiesService {
 
     public Either<ErrorMsg, List<ClientModel>> getClients() {
         return Optional.ofNullable(feignClientService.getClients())
-                .filter(clients -> !clients.isEmpty())
                 .map(Either::<ErrorMsg, List<ClientModel>>right)
                 .orElseGet(() -> Either.left(new ErrorMsg(AdminErrorMessageType.NO_CLIENTS_FOUND.toString())));
     }
@@ -56,7 +55,6 @@ public class AdminCapabilitiesService {
 
     public Either<ErrorMsg, List<TrainerModel>> getTrainers() {
         return Optional.ofNullable(feignTrainerService.getAllTrainers())
-                .filter(trainers -> !trainers.isEmpty())
                 .map(Either::<ErrorMsg, List<TrainerModel>>right)
                 .orElseGet(() -> Either.left(new ErrorMsg(AdminErrorMessageType.NO_TRAINERS_FOUND.toString())));
     }

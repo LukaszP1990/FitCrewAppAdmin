@@ -18,7 +18,7 @@ class AdminDocumentAdminDtoConverterTest {
     private static String ADMIN_ENCRYPTED_PASSWORD = "$2y$12$Y3QFw.tzF7OwIJGlpzk9s.5Ymq4zY3hItIkD0Xes3UWxBo2SkEgei";
 
     @Test
-    void shouldConvertAdminDtoToAdminDocument() {
+    void shouldConvertAdminDtoToAdminModel() {
         AdminModel adminModel = adminConverter.adminDocumentToAdminModel(adminDocument);
         assertNotNull(adminModel);
         assertAll(() -> {
